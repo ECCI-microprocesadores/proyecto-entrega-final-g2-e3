@@ -345,30 +345,13 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 6.</strong> MAIN.C PARTE 1.</p>
+<p align="center"><strong>Figura 6.</strong> MAIN.C</p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/83866311-9af5-457f-902d-9604b622b6e8" alt="Mi imagen">
+  <img src="https://github.com/user-attachments/assets/71d71bee-ffd3-4391-8a2b-da3568aca656" alt="Mi imagen">
 </p>
 <p align="center">
 (Fuente propia)
 </p>
-
- <p align="center"><strong>Figura 7.</strong> MAIN.C PARTE 2.</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/3b298af0-7215-41bb-b4db-63b8e542b1e6" alt="Mi imagen">
-</p>
-<p align="center">
-(Fuente propia)
-</p>
-
-  <p align="center"><strong>Figura 8.</strong> MAIN.C PARTE 3.</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/61ac40c6-28e5-45e3-b628-b7319919adb9" alt="Mi imagen">
-</p>
-<p align="center">
-(Fuente propia)
-</p>
-
 
 ## Explicación de Código
 
