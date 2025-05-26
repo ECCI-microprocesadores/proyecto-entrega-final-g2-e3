@@ -330,9 +330,17 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 
 En este esquematico se integra el Relay para poder activar el Ventilador
 
+<p align="center"><strong>Figura 11.</strong>Montaje Final.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dfed493c-73a8-44eb-b358-d8fa5e560620" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
 ## Diagramas
 
-<p align="center"><strong>Figura 11.</strong> ADC.</p>
+<p align="center"><strong>Figura 12.</strong> ADC.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/09768a97-e410-4d87-950e-a0dabdb0772e" alt="Mi imagen">
 </p>
@@ -340,7 +348,7 @@ En este esquematico se integra el Relay para poder activar el Ventilador
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 12.</strong> i2C.C.</p>
+<p align="center"><strong>Figura 13.</strong> i2C.C.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/14477e47-8701-4d7f-8017-dff02e005871" alt="Mi imagen">
 </p>
@@ -348,7 +356,7 @@ En este esquematico se integra el Relay para poder activar el Ventilador
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 13.</strong> I2C_LCD.</p>
+<p align="center"><strong>Figura 14.</strong> I2C_LCD.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7174ca9c-a184-4d25-9da2-a8ca078e7bfb" alt="Mi imagen">
 </p>
@@ -356,7 +364,7 @@ En este esquematico se integra el Relay para poder activar el Ventilador
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 14.</strong> MAIN.C</p>
+<p align="center"><strong>Figura 15.</strong> MAIN.C</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/71d71bee-ffd3-4391-8a2b-da3568aca656" alt="Mi imagen">
 </p>
