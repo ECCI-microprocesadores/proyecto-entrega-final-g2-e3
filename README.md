@@ -319,6 +319,8 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
 1. **Arranque del sistema**  
    - LCD inicializando vía I2C y mostrando la temperatura ambiente.  
    - LEDs en verde.
+   
+   https://github.com/user-attachments/assets/98782020-4ebf-49ef-b6c1-de5e9d3b41c8
 
 2. **Variación de temperatura**  
    - Cambio de LEDs a amarillo y luego rojo al aproximar la mano al sensor LM35.  
