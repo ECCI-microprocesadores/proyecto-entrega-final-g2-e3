@@ -224,6 +224,55 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 
 [Video de demostración de la entrega final disponible]  
 
+## Explicación de Código
+
+## i2c.c
+
+Este archivo implementa las rutinas de comunicación I²C (Inter-Integrated Circuit) usando el módulo MSSP (Master Synchronous Serial Port) del PIC. Su función principal es permitir la transmisión y recepción de datos a través del bus I2C, que se utiliza para comunicarse con dispositivos externos (como un expansor I/O para el LCD). El código establece el módulo I2C en modo maestro, configurando los registros `SSPCON`, `SSPCON2` y `SSPSTAT` con los valores adecuados para habilitar I2C y fijar la velocidad de transmisión según una frecuencia de cristal predefinida (`_XTAL_FREQ`) y la tasa de baudios deseada (`I2C_BaudRate`).
+
+El archivo ofrece varias funciones clave:
+
+* **I2C__Init():** Inicializa el hardware I2C, ajustando el reloj y habilitando los pines SCL/SDA como entradas para la línea abierta.
+* **I2C__Start() / I2C__RepeatedStart() / I2C__Stop():** Inician, re-inician o finalizan una comunicación I2C. Estas funciones activan los bits `SEN`, `RSEN` o `PEN` tras asegurarse (mediante `I2C__Wait()`) de que el bus esté libre.
+* **I2C__Write(data):** Envía un byte al bus. Esta función pone el dato en el registro `SSPBUF`, espera a que se complete la transmisión (`SSPIF`), limpia la bandera y devuelve el estado de ACK (si el dispositivo esclavo reconoció la transmisión).
+* **I2C_Read_Byte():** Lee un byte del bus I2C. Activa el bit `RCEN` para habilitar la recepción, espera la señal de interrupción, luego retorna el dato recibido del registro `SSPBUF`.
+* **I2C_ACK() / I2C_NACK():** Envían una señal de ACK o NACK después de recibir datos, controlando los bits `ACKDT` y `ACKEN`.
+
+En el código interno de `i2c.c` es fundamental la rutina `I2C__Wait()`, que monitorea los flags del módulo I2C para asegurar que la línea esté lista antes de cada operación. Así, se evita iniciar una nueva transmisión antes de que la anterior haya concluido. En conjunto, `i2c.c` provee una capa de abstracción que simplifica el uso de I2C en el resto del programa, sin que otros módulos necesiten manipular directamente los registros de hardware.
+
+## i2c.h
+
+En este encabezado se definen los parámetros y prototipos relacionados con la interfaz I²C. Contiene constantes como la frecuencia del cristal (`_XTAL_FREQ`), la tasa de baudios de I2C (`I2C_BaudRate`) y macros para indicar los pines de datos (por ejemplo, `SCL_D` y `SDA_D` apuntan a los registros TRIS de los pines SCL y SDA). Estas macros ayudan a configurar y controlar la dirección de los pines usados por el bus I2C.
+
+Además, `i2c.h` declara los prototipos de las funciones implementadas en `i2c.c`: `void I2C__Init(void);`, `void I2C__Start(void);`, `void I2C__Stop(void);`, `unsigned char I2C__Write(unsigned char data);`, `unsigned char I2C_Read_Byte(void);`, etc. De esta forma, otros archivos (como el módulo LCD) pueden invocar estas rutinas sin definición interna. El archivo suele incluir protecciones contra inclusión doble y la inclusión de encabezados estándar del compilador (por ejemplo `<xc.h>`). En conjunto, `i2c.h` define la interfaz pública de la capa I2C, marcando configuraciones clave y exponiendo las funciones de comunicación.
+
+## i2c_lcd.c
+
+Este archivo implementa las funciones de alto nivel para controlar una pantalla LCD mediante un expansor I²C (como el PCF8574). Aprovecha las rutinas de `i2c.c` para enviar comandos y datos al LCD utilizando la comunicación I2C. Internamente, mantiene variables globales que representan el estado de la señal RS (para seleccionar registro de datos o comando) y el backlight (retroiluminación) del LCD.
+
+El contenido típico de `i2c_lcd.c` incluye:
+
+* **LCD_Init(address):** Inicializa el LCD enviando una secuencia de comandos estándar para ponerlo en modo 4 bits, encender la pantalla, borrar, y establecer el modo de entrada. Primero guarda la dirección I2C del expander (por ejemplo `0x4E`) en una variable interna, luego escribe ceros en el expansor para preparar la línea. A continuación ejecuta varias llamadas a `LCD_CMD(...)` con retardos (`__delay_ms`) para completar la configuración (método similar a lo indicado en la hoja de datos del LCD).
+* **IO_Expander_Write(data):** Envía un byte completo al expansor I2C. Utiliza `I2C__Start()`, luego escribe la dirección del dispositivo (`i2c_add`), seguida del dato con la bit de backlight, y finalmente `I2C__Stop()`. Esta función es la base para comunicar cualquier cambio al puerto de salida del expansor (que controla las patillas del LCD).
+* **LCD_Write_4Bit(nibble):** Envía 4 bits al LCD por medio del expansor. Combina el nibble con el valor actual de RS (para indicar si es comando o dato) y el backlight. Luego realiza un pulso de habilitación (Enable) poniendo alto un bit específico (`E`) con `IO_Expander_Write(nibble | 0x04)`, seguido de bajarlo (`IO_Expander_Write(nibble & 0xFB)`) y esperando unos microsegundos para completar la escritura.
+* **LCD_CMD(cmd):** Para enviar un comando al LCD, la rutina ajusta RS=0 y divide el byte de comando en dos nibbles (alto y bajo). Llama dos veces a `LCD_Write_4Bit`: primero con `cmd & 0xF0` (los 4 bits más significativos), luego con `(cmd << 4) & 0xF0` (los 4 bits menos significativos). Esto obedece el protocolo de funcionamiento en 4 bits del LCD.
+* **LCD_Write_Char(data):** Similar a `LCD_CMD`, pero con RS=1 (seleccionando el registro de datos). También descompone el byte del caracter en dos nibbles e invoca `LCD_Write_4Bit` dos veces para transmitirlo.
+* **LCD_Write_String(str):** Recorre un arreglo de caracteres nulos (`'\0'`) y llama repetidamente a `LCD_Write_Char` para desplegar cada caracter en secuencia. Esto simplifica escribir texto completo en pantalla.
+* **LCD_Set_Cursor(row, col):** Mueve el cursor del LCD a la fila y columna indicadas. Internamente calcula la dirección DDRAM correspondiente (por ejemplo, `0x80` para la primera fila, `0xC0` para la segunda, etc.) sumando el desplazamiento de columna (`col-1`), y envía este valor con `LCD_CMD` para posicionar el cursor.
+* **Backlight() / noBacklight():** Enciende o apaga la retroiluminación del LCD modificando la variable `BackLight_State`. Luego llama a `IO_Expander_Write(0)` para que el cambio surta efecto (pone el bit correspondiente del expansor).
+* **LCD_SL() / LCD_SR():** Ordenan al LCD desplazar la pantalla completa a la izquierda (`0x18`) o a la derecha (`0x1C`), usando `LCD_CMD` con retardos cortos.
+* **LCD_Clear():** Envía el comando de borrado de pantalla (`0x01`) y espera unos microsegundos para que concluya la operación.
+
+En resumen, `i2c_lcd.c` oculta los detalles de bajo nivel (como pulsos de señal Enable y gestiones del expansor) tras funciones fáciles de usar. Cualquier parte del programa puede inicializar la pantalla y escribir texto llamando a estas funciones, sin preocuparse por los aspectos eléctricos.
+
+## i2c_lcd.h
+
+Este encabezado define las constantes y prototipos relacionadas con el manejo del LCD vía I2C. Contiene definiciones de macros útiles, como el formato de líneas del LCD: por ejemplo `LCD_FIRST_ROW 0x80`, `LCD_SECOND_ROW 0xC0`, etc., que representan las direcciones iniciales de cada fila. También incluye los códigos de comando típicos del LCD (como `LCD_CLEAR 0x01`, `LCD_RETURN_HOME 0x02`, `LCD_ENTRY_MODE_SET 0x04`, `LCD_CURSOR_OFF 0x0C`, entre otros) para facilitar su uso en el código.
+
+Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD_Init(unsigned char addr);`, `void LCD_Write_Char(char c);`, `void LCD_Write_String(char *s);`, `void LCD_Set_Cursor(unsigned char row, unsigned char col);`, `void Backlight(void);`, `void noBacklight(void);`, `void LCD_Clear(void);`, etc. Incluye también guardas de inclusión múltiple y los includes necesarios (`<xc.h>` o de `i2c.h` para usar las rutinas I2C). Al centralizar estos prototipos y definiciones, cualquier archivo que desee controlar el LCD puede simplemente incluir `i2c_lcd.h` y usar sus funciones y macros, manteniendo el código limpio y fácil de leer.
+
+
+
 
 ## Conclusiones
 
