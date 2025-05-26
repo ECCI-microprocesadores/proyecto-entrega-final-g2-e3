@@ -208,6 +208,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
 </p>
 
+
 ## Diagramas
 
 <p align="center"><strong>Figura 3.</strong> ADC.</p>
@@ -253,6 +254,14 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
   <p align="center"><strong>Figura 8.</strong> MAIN.C PARTE 3.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/61ac40c6-28e5-45e3-b628-b7319919adb9" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+<p align="center"><strong>Figura 9.</strong>Esquemático</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5642c238-3315-4894-a1d9-641b26f41325" alt="Mi imagen">
 </p>
 <p align="center">
 (Fuente propia)
