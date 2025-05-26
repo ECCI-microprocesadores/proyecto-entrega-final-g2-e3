@@ -164,35 +164,57 @@ Este diseño compacto y eficiente mejora la escalabilidad y el uso de recursos d
   - `i2c_lcd.c` / `i2c_lcd.h`  
   - `adc.c` / `adc.h`  
 
-
 ### Descripción del Código Principal
 
-1. **Configuración de fuses**  
-   - Se establece el oscilador interno a 48 MHz y se deshabilita el PLL.  
-   - Se habilita el reloj primario, se desactiva el Watchdog y el Power-up Timer.  
-   - Se configura el pin MCLR como entrada externa de reset y PORTB<4:0> como digital.
+1. **Configuración de fuses**
 
-2. **Inicialización de módulos**  
-   - **ADC**: se habilita AN0 como entrada analógica y se configura para lecturas de 10 bits.  
-   - **I²C**: se inicializa el módulo maestro a la frecuencia adecuada para la comunicación con el expansor del LCD.  
-   - **LCD I²C**: se envía la secuencia de inicialización al expansor, se limpia la pantalla y se posiciona el cursor.
+- Se establece el oscilador interno a 48 MHz y se deshabilita el PLL.  
+- Se habilita el reloj primario, se desactiva el Watchdog y el Power-up Timer.  
+- Se configura el pin MCLR como entrada externa de reset y PORTB<4:0> como digital.
 
-3. **Configuración de LEDs**  
-   - Se deshabilita la función analógica en RB0–RB3 y se configuran como salidas digitales.  
-   - Al inicio se apagan todos los LEDs.
+2. **Inicialización de módulos**
 
-4. **Bucle de medición y control**  
-   - **Lectura ADC**: se lee el valor de AN0 (0–1023) y se escala a milivoltios considerando V<sub>DD</sub> ≈ 3.1 V.  
-   - **Cálculo de temperatura**: se convierte la lectura en décimas de grado (10 mV = 1 décima).  
-   - **Formateo de cadena**: se transforma la parte entera y decimal en caracteres ASCII para mostrar “XX.XC”.  
-   - **Despliegue en LCD**: se posiciona el cursor en la primera línea y se imprime la cadena de temperatura.  
-   - **Control de LEDs**:  
-     - Verde si ≥ 20 °C.  
-     - Amarillo si ≥ 30 °C.  
-     - Rojo si ≥ 40 °C.  
-     - Umbral adicional (LED_OVER) si > 50 °C.  
-   - **Activación de ventilador**: se conmutan los contactos del relé cuando la temperatura supera 40 °C, manteniéndolo hasta que baje bajo el nivel de histéresis.  
-   - Se introduce un breve retardo (~20 ms) antes de la siguiente lectura.
+- **ADC**: se habilita AN0 como entrada analógica y se configura para lecturas de 10 bits.  
+- **I²C**: se inicializa el módulo maestro a la frecuencia adecuada para la comunicación con el expansor del LCD.  
+- **LCD I²C**: se envía la secuencia de inicialización, se limpia la pantalla con `lcd_clear()` al inicio y se posiciona el cursor.
+
+3. **Mensajes en LCD**
+
+En la **primera línea** se muestra el prefijo:  
+- Posición (0,0): `"Estado: "`  
+
+En la **segunda línea** (columna 2) se muestra la lectura:  
+- `"Temp: XX.XC"`  
+
+Después, en la **misma primera línea** (columna 7) se escribe un mensaje de **8 caracteres** para indicar el estado de temperatura, evitando que queden caracteres sobrantes:  
+- `“Frio    ”` para temperatura < 30 °C.  
+- `“Normal  ”` para 30 °C ≤ temperatura < 40 °C.  
+- `“Caliente”` para 40 °C ≤ temperatura < 48 °C.  
+- `“Peligro!”` para temperatura ≥ 48 °C.
+
+4. **Configuración de LEDs**
+
+Se deshabilita la función analógica en RB0–RB3 y se configuran como salidas digitales.  
+Al inicio se apagan todos los LEDs.
+
+5. **Bucle de medición y control**
+
+- **Lectura ADC**: se lee AN0 (0–1023) y se escala a milivoltios considerando VDD ≈ 3.1 V.  
+- **Cálculo de temperatura**: 10 mV = 1 décima de °C. Se obtiene parte entera y decimal.  
+- **Formateo de cadena**: se genera `"XX.XC"` en el buffer `tbuf`.  
+- **Despliegue en LCD**:  
+  - Línea 1, col 0: `"Estado: "`.  
+  - Línea 2, col 2: `"Temp: "` + `tbuf`.  
+  - Línea 1, col 7: mensaje de estado de 8 caracteres.  
+- **Control de LEDs**:  
+  - `LED_20` (RB0): verde si ≥ 20 °C.  
+  - `LED_30` (RB1): amarillo si ≥ 30 °C.  
+  - `LED_40` (RB2): rojo si ≥ 40 °C.  
+  - `LED_OVER` (RB3): si > 50 °C.  
+- **Histéresis para salida B4** (RB4):  
+  - Se activa al alcanzar ≥ 50 °C.  
+  - Se desactiva al bajar ≤ 30 °C.  
+- **Retardo** de 500 ms antes de la siguiente lectura (`__delay_ms(500)`).
 
 
 ## Implementación
@@ -250,6 +272,38 @@ Este diseño compacto y eficiente mejora la escalabilidad y el uso de recursos d
 | Pin del PIC | Conexión            | Descripción                                                  |
 |-------------|---------------------|--------------------------------------------------------------|
 | RB4         | Entrada de relevador| Se activa cuando la temperatura ≥ 50 °C y se desactiva < 30 °C |
+
+<p align="center"><strong>Figura 9.</strong>Esquemático</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5642c238-3315-4894-a1d9-641b26f41325" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+En la figura podemos observar el primer montaje que se realizó en Proteus para verificar el correcto cableado de todos los componentes:
+
+- **Sensor LM35**: conectado a la entrada analógica AN0 (RA0) del PIC18F45K22 (U1).  
+- **Microcontrolador PIC18F45K22** (U1): alimentado a +5 V, con RA6/RA7 como GPIO y MCLR configurado como reset externo.  
+- **LCD I²C** (JHD-2X16-I2C): conectado al bus I²C del PIC (SCL en RC3, SDA en RC4), con sus pines VDD y VSS a +5 V y GND.  
+- **LEDs D1–D4**: cada uno con resistencia de 1 kΩ, conectados a RB0–RB3 para indicar umbrales de temperatura (≥ 20 °C, ≥ 30 °C, ≥ 40 °C y > 50 °C).  
+- **Salida RB4** (SALIDA_B4): reservada para control de relé o ventilador con histéresis entre 50 °C y 30 °C.
+
+Este montaje en Proteus permite simular:
+
+1. La lectura analógica del LM35.  
+2. La conversión y despliegue en la LCD vía I²C.  
+3. El encendido secuencial de LEDs según umbrales definidos.  
+
+Antes de pasar al prototipo físico, confirmamos que todas las conexiones y la lógica de activación funcionan correctamente.  
+
+<p align="center"><strong>Figura 9.</strong>Esquemático</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/88bab25f-548b-461e-9caa-91722a181646" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
 
 
 Debo conectar la interfaz I2C del LCD en los pines SDA y SCL correspondientes del microcontrolador PIC que estoy usando.
@@ -315,13 +369,6 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 9.</strong>Esquemático</p>
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5642c238-3315-4894-a1d9-641b26f41325" alt="Mi imagen">
-</p>
-<p align="center">
-(Fuente propia)
-</p>
 
 ## Explicación de Código
 
@@ -391,5 +438,30 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
 
 ## Conclusiones
 
+1. **Validación mediante simulación**  
+   La utilización de Proteus permitió comprobar el correcto conexionado y la lógica de funcionamiento antes de implementar el prototipo físico, ahorrando tiempo y reduciendo errores de cableado.
 
-<!-- Crear una carpeta src e incluir en ella los códigos y/o el proyecto de mplab-->
+2. **Fiabilidad en la lectura de temperatura**  
+   El sensor LM35, con su salida lineal de 10 mV/°C, y la conversión en el PIC18F45K22 proporcionan una resolución de 0.1 °C, cumpliendo con los requisitos de precisión para aplicaciones de monitoreo climático.
+
+3. **Interfaz intuitiva**  
+   - El módulo LCD I²C muestra simultáneamente la temperatura (“Temp: XX.XC”) y un mensaje de estado codificado en 8 caracteres (“Frio”, “Normal”, “Caliente”, “Peligro!”) sin dejar residuos de texto.  
+   - Los LEDs en RB0–RB3 refuerzan visualmente los rangos críticos, facilitando la lectura rápida.
+
+4. **Control de actuadores con histéresis**  
+   La salida RB4, diseñada para accionar un ventilador o relé, incorpora histéresis (activa a ≥ 50 °C y desactiva a ≤ 30 °C), evitando oscilaciones y desgaste mecánico por conmutaciones frecuentes.
+
+5. **Modularidad y escalabilidad**  
+   El firmware está estructurado de forma clara (lectura ADC, cálculo, formateo, despliegue, control de salidas), lo que facilita la incorporación de nuevas funciones (alarma sonora, registro por UART, comunicación inalámbrica, etc.).
+
+6. **Optimización de recursos**  
+   - Se aprovechan los periféricos integrados (ADC, MSSP/I²C) del PIC para minimizar componentes externos.  
+   - El código en C resulta legible y portable a otros microcontroladores de la familia PIC.
+
+7. **Potencial de mejora**  
+   - Ajuste dinámico de umbrales vía botones o interfaz remota.  
+   - Registro de histórico de temperaturas en memoria externa o servidor.  
+   - Integración con sistemas domóticos o de control industrial.
+
+En conjunto, el proyecto demuestra un flujo de desarrollo completo: simulación, diseño de hardware, programación de firmware y validación de resultados, sentando una base sólida para futuras ampliaciones.  
+
