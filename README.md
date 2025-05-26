@@ -207,7 +207,57 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 <p align="center">
 (Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
 </p>
+
 ## Diagramas
+
+<p align="center"><strong>Figura 3.</strong> ADC.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/09768a97-e410-4d87-950e-a0dabdb0772e" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+<p align="center"><strong>Figura 4.</strong> i2C.C.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/14477e47-8701-4d7f-8017-dff02e005871" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+<p align="center"><strong>Figura 5.</strong> I2C_LCD.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7174ca9c-a184-4d25-9da2-a8ca078e7bfb" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+<p align="center"><strong>Figura 6.</strong> MAIN.C PARTE 1.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/83866311-9af5-457f-902d-9604b622b6e8" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+ <p align="center"><strong>Figura 7.</strong> MAIN.C PARTE 2.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3b298af0-7215-41bb-b4db-63b8e542b1e6" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
+  <p align="center"><strong>Figura 7.</strong> MAIN.C PARTE 3.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/61ac40c6-28e5-45e3-b628-b7319919adb9" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
+
 ## Evidencia en vídeo
 
 1. **Arranque del sistema**  
@@ -270,8 +320,6 @@ En resumen, `i2c_lcd.c` oculta los detalles de bajo nivel (como pulsos de señal
 Este encabezado define las constantes y prototipos relacionadas con el manejo del LCD vía I2C. Contiene definiciones de macros útiles, como el formato de líneas del LCD: por ejemplo `LCD_FIRST_ROW 0x80`, `LCD_SECOND_ROW 0xC0`, etc., que representan las direcciones iniciales de cada fila. También incluye los códigos de comando típicos del LCD (como `LCD_CLEAR 0x01`, `LCD_RETURN_HOME 0x02`, `LCD_ENTRY_MODE_SET 0x04`, `LCD_CURSOR_OFF 0x0C`, entre otros) para facilitar su uso en el código.
 
 Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD_Init(unsigned char addr);`, `void LCD_Write_Char(char c);`, `void LCD_Write_String(char *s);`, `void LCD_Set_Cursor(unsigned char row, unsigned char col);`, `void Backlight(void);`, `void noBacklight(void);`, `void LCD_Clear(void);`, etc. Incluye también guardas de inclusión múltiple y los includes necesarios (`<xc.h>` o de `i2c.h` para usar las rutinas I2C). Al centralizar estos prototipos y definiciones, cualquier archivo que desee controlar el LCD puede simplemente incluir `i2c_lcd.h` y usar sus funciones y macros, manteniendo el código limpio y fácil de leer.
-
-
 
 
 ## Conclusiones
