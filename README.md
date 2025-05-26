@@ -323,9 +323,11 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
    https://github.com/user-attachments/assets/98782020-4ebf-49ef-b6c1-de5e9d3b41c8
 
 2. **Variación de temperatura**  
-   - Cambio de LEDs a amarillo y luego rojo al aproximar la mano al sensor LM35.  
+   - Cambio de LEDs a amarillo y luego rojo al aproximar el encendedor al sensor LM35.  
    - Actualización simultánea en la pantalla LCD.
-
+   
+   https://github.com/user-attachments/assets/bff0e00e-1873-42a4-9ca1-90dfa10cd483
+  
 3. **Umbral crítico**  
    - Activación del ventilador para enfriamiento.  
    - Retorno a estado normal cuando la temperatura disminuye, con LEDs regresando a verde y mensaje “NORMAL” en la LCD.
