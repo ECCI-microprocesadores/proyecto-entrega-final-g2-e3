@@ -6,7 +6,7 @@
 
 [Carlos Andres Rojas Diaz](https://github.com/CarlosRojas05)
 
-## Nombre del proyecto: 
+## Nombre del proyecto: Sistema de Detección de Sobrecalentamiento con Indicadores LED y Relevador
 
 
 ## Documentación
@@ -15,12 +15,12 @@ El LM35 es un circuito electrónico sensor que puede medir temperatura. Su salid
 
 Para convertir el voltaje a la temperatura, el LM35 proporciona 10mV por cada grado centígrado. También cabe señalar que ese sensor se puede usar sin offset, es decir que si medimos 20mV a la salida, estaremos midiendo 2°C.
 
-<p align="center"><strong>Figura 1.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 1.</strong> LM35.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f0317be9-2a2e-426e-8cdd-4d2c20e9d706" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: E-Marmolejo, R. (2018, enero 17). LM35 - El sensor de temperatura más popular. HeTPro-Tutoriales. https://hetpro-store.com/TUTORIALES/lm35/?srsltid=AfmBOooKGkOOA8b8sjG9Gf04AgnLDLdNxe5k9gBwqz73UlEODDEc3D3J#google_vignette)
 </p>
 
 ### LM35 y sus características principales
@@ -40,30 +40,30 @@ Para convertir el voltaje a la temperatura, el LM35 proporciona 10mV por cada gr
 ### Los pines del sensor LM35
 El pinout del sensor de temperatura son tres: GND, VCC y VSalida. Entonces dependiendo del empaquetado será el orden de conexión de los pines. Por ejemplo, el empaquetado TO-220 tiene la siguiente distribución:
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 2.</strong> Conexiones LM35.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d4f0ed55-b48c-4c6e-956c-362e6e0444a6" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: E-Marmolejo, R. (2018, enero 17). LM35 - El sensor de temperatura más popular. HeTPro-Tutoriales. https://hetpro-store.com/TUTORIALES/lm35/?srsltid=AfmBOooKGkOOA8b8sjG9Gf04AgnLDLdNxe5k9gBwqz73UlEODDEc3D3J#google_vignette)
 </p>
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 3.</strong> Conexiones LM35.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/056182f0-5c37-4ee8-a474-ec88072505e2" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: E-Marmolejo, R. (2018, enero 17). LM35 - El sensor de temperatura más popular. HeTPro-Tutoriales. https://hetpro-store.com/TUTORIALES/lm35/?srsltid=AfmBOooKGkOOA8b8sjG9Gf04AgnLDLdNxe5k9gBwqz73UlEODDEc3D3J#google_vignette)
 </p>
 
 La simples del circuito hace que sea muy fácil ser utilizado en alguna aplicación embebida. Entonces sólo basta alimentarlo con digamos 5VDC, conectar la tierra GND a la tierra del circuito digital y la salida de voltaje a la entrada del ADC.
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 4.</strong> Conexion LM35 con un PIC.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/2b7f98f9-079b-4426-a085-611d30e2e231" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: E-Marmolejo, R. (2018, enero 17). LM35 - El sensor de temperatura más popular. HeTPro-Tutoriales. https://hetpro-store.com/TUTORIALES/lm35/?srsltid=AfmBOooKGkOOA8b8sjG9Gf04AgnLDLdNxe5k9gBwqz73UlEODDEc3D3J#google_vignette)
 </p>
 
 ### ¿Qué es el Protocolo I2C y por Qué Usarlo con un PIC?
@@ -81,22 +81,22 @@ Ventajas de Usar I2C en Proyectos con PIC:
 * **Facilidad para Escalar:** Puedes conectar múltiples dispositivos I2C al mismo bus sin complicaciones adicionales, permitiendo la expansión fácil de tus proyectos.
 ### Interfaz LCD I2C PIC
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 5.</strong> Conexiones.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5ed64783-6975-4196-84ce-29ed9dd4a508" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: Giraldo, S. A. C. (2024, 14 agosto). LCD I2C PIC. Control Automático Educación. https://controlautomaticoeducacion.com/sistemas-embebidos/microcontroladores-pic/lcd-i2c-pic/#google_vignette)
 </p>
 
 Para evitar ocupar múltiples pines del microcontrolador PIC, podemos utilizar dispositivos como el PCF8574T, un expansor de entradas y salidas digitales que se conecta mediante el protocolo I2C. Este módulo permite manejar un LCD usando solo dos pines del microcontrolador, SDA y SCL, simplificando enormemente el diseño de tu circuito.
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 2.</strong> Placa I2C adaptadora LCD1602 – PCF8574.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9eb6c34c-10b0-4212-8b6c-055fbf300579" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente: Giraldo, S. A. C. (2024, 14 agosto). LCD I2C PIC. Control Automático Educación. https://controlautomaticoeducacion.com/sistemas-embebidos/microcontroladores-pic/lcd-i2c-pic/#google_vignette)
 </p>
 
 # Entrega Final del Proyecto
@@ -131,13 +131,13 @@ Este diseño compacto y eficiente mejora la escalabilidad y el uso de recursos d
 
 1. **Monitoreo en LCD vía I2C**  
    - Configurar el bus I2C en el PIC y adaptar las rutinas para comunicación con el expansor de pines.  
-   - Mostrar “Temp: XX.X°C” y un mensaje de estado (“NORMAL”, “PRECAUCIÓN”, “ENFRIANDO”).
+   - Mostrar “Temp: XX.X°C”.
 
 2. **Indicadores LED secuenciales**  
    - LED verde: temperatura < 20 °C.  
    - LED amarillo: 20 °C ≤ temperatura < 30 °C.  
    - LED rojo: 30 °C ≤ temperatura < 40 °C.  
-   - LED adicional: temperatura > 50 °C.
+   - LED rojo: temperatura > 50 °C.
 
 3. **Control del ventilador**  
    - Conmutar un relé de 5 V para alimentar el ventilador al superar el umbral crítico.  
@@ -196,6 +196,62 @@ Este diseño compacto y eficiente mejora la escalabilidad y el uso de recursos d
 
 
 ## Implementación
+
+# Conexiones del circuito – Sensor LM35, PIC18F45K22, LCD I2C, LEDs y relevador
+
+## 1. Sensor de Temperatura LM35 (U2)
+| Pin del LM35 | Conexión             | Descripción                     |
+|--------------|----------------------|---------------------------------|
+| 1 (VCC)      | +5V                  | Alimentación                    |
+| 2 (VOUT)     | RA0/AN0 (pin 2 PIC)  | Señal analógica de temperatura  |
+| 3 (GND)      | GND                  | Tierra común                    |
+
+---
+
+## 2. Microcontrolador PIC18F45K22 (U1)
+| Pin del PIC | Nombre     | Conexión/Función                          |
+|-------------|------------|------------------------------------------|
+| 1           | MCLR       | +5V (reset)                               |
+| 2           | RA0/AN0    | Entrada de sensor LM35                   |
+| 14          | VSS        | GND                                       |
+| 32          | VDD        | +5V                                       |
+| 33          | RB0        | LED D1 (umbral ≥ 20 °C)                   |
+| 34          | RB1        | LED D2 (umbral ≥ 30 °C)                   |
+| 35          | RB2        | LED D3 (umbral ≥ 40 °C)                   |
+| 36          | RB3        | LED D4 (umbral > 50 °C)                   |
+| 37          | RB4        | **Relevador (relay) – Control de carga** |
+| 18          | RC3        | SCL del módulo LCD I2C                   |
+| 23          | RC4        | SDA del módulo LCD I2C                   |
+
+---
+
+## 3. Módulo LCD 16x2 con I2C (LCD1)
+| Pin LCD I2C | Conexión al PIC | Función             |
+|-------------|------------------|---------------------|
+| VDD         | +5V              | Alimentación        |
+| VSS         | GND              | Tierra              |
+| SCL         | RC3 (pin 18)     | Señal de reloj I2C  |
+| SDA         | RC4 (pin 23)     | Datos I2C           |
+
+---
+
+## 4. LEDs (D1 a D4) – con resistencias de 1kΩ
+| LED | Pin PIC | Umbral de temperatura | Conexión         |
+|-----|---------|------------------------|------------------|
+| D1  | RB0     | ≥ 20 °C                | Ánodo a RB0      |
+| D2  | RB1     | ≥ 30 °C                | Ánodo a RB1      |
+| D3  | RB2     | ≥ 40 °C                | Ánodo a RB2      |
+| D4  | RB3     | > 50 °C                | Ánodo a RB3      |
+|     |         |                        | Cátodo a GND     |
+
+---
+
+## 5. Relevador (Relay)
+| Pin del PIC | Conexión            | Descripción                                                  |
+|-------------|---------------------|--------------------------------------------------------------|
+| RB4         | Entrada de relevador| Se activa cuando la temperatura ≥ 50 °C y se desactiva < 30 °C |
+
+
 Debo conectar la interfaz I2C del LCD en los pines SDA y SCL correspondientes del microcontrolador PIC que estoy usando.
 
 Es importante verificar en el datasheet de cada microcontrolador cuáles son los pines específicos para la comunicación I2C, ya que pueden variar según el modelo.
@@ -205,7 +261,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
   <img src="https://github.com/user-attachments/assets/c97682bf-fe99-4e32-97e8-75054ea39b78" alt="Mi imagen">
 </p>
 <p align="center">
-(Fuente: Maldonado Ramírez, D. N. (2025, 12 de mayo). Lab04: Comunicación UART en PIC18F45K22 [Archivo de GitHub]. https://github.com/DianaNatali/ECCI-Microprocesadores-2025-I-/blob/main/laboratorios/4_lab04/README.md)
+(Fuente propia)
 </p>
 
 
@@ -332,7 +388,6 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
    - Activación del ventilador para enfriamiento.  
    - Retorno a estado normal cuando la temperatura disminuye, con LEDs regresando a verde y mensaje “NORMAL” en la LCD.
 
-[Video de demostración de la entrega final disponible]  
 
 ## Conclusiones
 
