@@ -91,7 +91,7 @@ Ventajas de Usar I2C en Proyectos con PIC:
 
 Para evitar ocupar múltiples pines del microcontrolador PIC, podemos utilizar dispositivos como el PCF8574T, un expansor de entradas y salidas digitales que se conecta mediante el protocolo I2C. Este módulo permite manejar un LCD usando solo dos pines del microcontrolador, SDA y SCL, simplificando enormemente el diseño de tu circuito.
 
-<p align="center"><strong>Figura 2.</strong> Placa I2C adaptadora LCD1602 – PCF8574.</p>
+<p align="center"><strong>Figura 6.</strong> Placa I2C adaptadora LCD1602 – PCF8574.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/9eb6c34c-10b0-4212-8b6c-055fbf300579" alt="Mi imagen">
 </p>
@@ -273,7 +273,7 @@ Al inicio se apagan todos los LEDs.
 |-------------|---------------------|--------------------------------------------------------------|
 | RB4         | Entrada de relevador| Se activa cuando la temperatura ≥ 50 °C y se desactiva < 30 °C |
 
-<p align="center"><strong>Figura 9.</strong>Esquemático</p>
+<p align="center"><strong>Figura 7.</strong>Esquemático</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5642c238-3315-4894-a1d9-641b26f41325" alt="Mi imagen">
 </p>
@@ -297,7 +297,7 @@ Este montaje en Proteus permite simular:
 
 Antes de pasar al prototipo físico, confirmamos que todas las conexiones y la lógica de activación funcionan correctamente.  
 
-<p align="center"><strong>Figura 9.</strong>Esquemático</p>
+<p align="center"><strong>Figura 8.</strong>Esquemático</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/88bab25f-548b-461e-9caa-91722a181646" alt="Mi imagen">
 </p>
@@ -310,7 +310,7 @@ Debo conectar la interfaz I2C del LCD en los pines SDA y SCL correspondientes de
 
 Es importante verificar en el datasheet de cada microcontrolador cuáles son los pines específicos para la comunicación I2C, ya que pueden variar según el modelo.
 
-<p align="center"><strong>Figura 2.</strong> Conexiones.</p>
+<p align="center"><strong>Figura 9.</strong> Conexiones.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c97682bf-fe99-4e32-97e8-75054ea39b78" alt="Mi imagen">
 </p>
@@ -318,10 +318,17 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
+<p align="center"><strong>Figura 10.</strong>Esquematico Parte 2.</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dd922fab-5bee-4af1-9771-6dc849119dee" alt="Mi imagen">
+</p>
+<p align="center">
+(Fuente propia)
+</p>
 
 ## Diagramas
 
-<p align="center"><strong>Figura 3.</strong> ADC.</p>
+<p align="center"><strong>Figura 11.</strong> ADC.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/09768a97-e410-4d87-950e-a0dabdb0772e" alt="Mi imagen">
 </p>
@@ -329,7 +336,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 4.</strong> i2C.C.</p>
+<p align="center"><strong>Figura 12.</strong> i2C.C.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/14477e47-8701-4d7f-8017-dff02e005871" alt="Mi imagen">
 </p>
@@ -337,7 +344,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 5.</strong> I2C_LCD.</p>
+<p align="center"><strong>Figura 13.</strong> I2C_LCD.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7174ca9c-a184-4d25-9da2-a8ca078e7bfb" alt="Mi imagen">
 </p>
@@ -345,7 +352,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-<p align="center"><strong>Figura 6.</strong> MAIN.C</p>
+<p align="center"><strong>Figura 14.</strong> MAIN.C</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/71d71bee-ffd3-4391-8a2b-da3568aca656" alt="Mi imagen">
 </p>
