@@ -358,11 +358,12 @@ En este esquematico se integra el Relay para poder activar el Ventilador
 
 <p align="center"><strong>Figura 14.</strong> I2C_LCD.</p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7174ca9c-a184-4d25-9da2-a8ca078e7bfb" alt="Mi imagen">
+  <img src="https://github.com/user-attachments/assets/44376a51-4362-4c2d-a7fd-b2811de5536b" alt="Mi imagen">
 </p>
 <p align="center">
 (Fuente propia)
 </p>
+
 
 <p align="center"><strong>Figura 15.</strong> MAIN.C</p>
 <p align="center">
