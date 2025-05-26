@@ -267,22 +267,6 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-## Evidencia en vídeo
-
-1. **Arranque del sistema**  
-   - LCD inicializando vía I2C y mostrando la temperatura ambiente y el estado “NORMAL”.  
-   - LEDs en verde.
-
-2. **Variación de temperatura**  
-   - Cambio de LEDs a amarillo y luego rojo al aproximar la mano al sensor LM35.  
-   - Actualización simultánea en la pantalla LCD.
-
-3. **Umbral crítico**  
-   - Activación del ventilador para enfriamiento.  
-   - Retorno a estado normal cuando la temperatura disminuye, con LEDs regresando a verde y mensaje “NORMAL” en la LCD.
-
-[Video de demostración de la entrega final disponible]  
-
 ## Explicación de Código
 
 ## i2c.c
@@ -330,6 +314,21 @@ Este encabezado define las constantes y prototipos relacionadas con el manejo de
 
 Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD_Init(unsigned char addr);`, `void LCD_Write_Char(char c);`, `void LCD_Write_String(char *s);`, `void LCD_Set_Cursor(unsigned char row, unsigned char col);`, `void Backlight(void);`, `void noBacklight(void);`, `void LCD_Clear(void);`, etc. Incluye también guardas de inclusión múltiple y los includes necesarios (`<xc.h>` o de `i2c.h` para usar las rutinas I2C). Al centralizar estos prototipos y definiciones, cualquier archivo que desee controlar el LCD puede simplemente incluir `i2c_lcd.h` y usar sus funciones y macros, manteniendo el código limpio y fácil de leer.
 
+## Evidencia en vídeo
+
+1. **Arranque del sistema**  
+   - LCD inicializando vía I2C y mostrando la temperatura ambiente.  
+   - LEDs en verde.
+
+2. **Variación de temperatura**  
+   - Cambio de LEDs a amarillo y luego rojo al aproximar la mano al sensor LM35.  
+   - Actualización simultánea en la pantalla LCD.
+
+3. **Umbral crítico**  
+   - Activación del ventilador para enfriamiento.  
+   - Retorno a estado normal cuando la temperatura disminuye, con LEDs regresando a verde y mensaje “NORMAL” en la LCD.
+
+[Video de demostración de la entrega final disponible]  
 
 ## Conclusiones
 
