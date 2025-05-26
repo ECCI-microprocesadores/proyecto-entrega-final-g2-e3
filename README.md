@@ -250,7 +250,7 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
-  <p align="center"><strong>Figura 7.</strong> MAIN.C PARTE 3.</p>
+  <p align="center"><strong>Figura 8.</strong> MAIN.C PARTE 3.</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/61ac40c6-28e5-45e3-b628-b7319919adb9" alt="Mi imagen">
 </p>
