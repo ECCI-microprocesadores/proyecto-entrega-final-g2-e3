@@ -267,12 +267,6 @@ Al inicio se apagan todos los LEDs.
 |     |         |                        | Cátodo a GND     |
 
 ---
-
-## 5. Relevador (Relay)
-| Pin del PIC | Conexión            | Descripción                                                  |
-|-------------|---------------------|--------------------------------------------------------------|
-| RB4         | Entrada de relevador| Se activa cuando la temperatura ≥ 50 °C y se desactiva < 30 °C |
-
 <p align="center"><strong>Figura 7.</strong>Esquemático</p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5642c238-3315-4894-a1d9-641b26f41325" alt="Mi imagen">
@@ -318,13 +312,23 @@ Es importante verificar en el datasheet de cada microcontrolador cuáles son los
 (Fuente propia)
 </p>
 
+## 5. Relevador (Relay)
+
+| Pin del PIC | Conexión            | Descripción                                                  |
+|-------------|---------------------|--------------------------------------------------------------|
+| RB4         | Entrada de relevador| Se activa cuando la temperatura ≥ 50 °C y se desactiva < 30 °C |
+  
+---
+
 <p align="center"><strong>Figura 10.</strong>Esquematico Parte 2.</p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/dd922fab-5bee-4af1-9771-6dc849119dee" alt="Mi imagen">
+  <img src="https://github.com/user-attachments/assets/552cd8d0-966b-4861-a099-4867b8ceaa68" alt="Mi imagen">
 </p>
 <p align="center">
 (Fuente propia)
 </p>
+
+En este esquematico se integra el Relay para poder activar el Ventilador
 
 ## Diagramas
 
