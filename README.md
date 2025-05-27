@@ -454,17 +454,9 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
 4. **Control de actuadores con histéresis**  
    La salida RB4, diseñada para accionar un ventilador o relé, incorpora histéresis (activa a ≥ 50 °C y desactiva a ≤ 30 °C), evitando oscilaciones y desgaste mecánico por conmutaciones frecuentes.
 
-5. **Modularidad y escalabilidad**  
-   El firmware está estructurado de forma clara (lectura ADC, cálculo, formateo, despliegue, control de salidas), lo que facilita la incorporación de nuevas funciones (alarma sonora, registro por UART, comunicación inalámbrica, etc.).
-
-6. **Optimización de recursos**  
+5. **Optimización de recursos**  
    - Se aprovechan los periféricos integrados (ADC, MSSP/I²C) del PIC para minimizar componentes externos.  
    - El código en C resulta legible y portable a otros microcontroladores de la familia PIC.
 
-7. **Potencial de mejora**  
-   - Ajuste dinámico de umbrales vía botones o interfaz remota.  
-   - Registro de histórico de temperaturas en memoria externa o servidor.  
-   - Integración con sistemas domóticos o de control industrial.
-
-En conjunto, el proyecto demuestra un flujo de desarrollo completo: simulación, diseño de hardware, programación de firmware y validación de resultados, sentando una base sólida para futuras ampliaciones.  
+ 
 
