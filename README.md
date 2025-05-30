@@ -438,6 +438,7 @@ Además, `i2c_lcd.h` declara las funciones que `i2c_lcd.c` implementa: `void LCD
    - Activación del ventilador para enfriamiento.  
    - Retorno a estado normal cuando la temperatura disminuye, con LEDs regresando a verde y mensaje “NORMAL” en la LCD.
 
+https://github.com/user-attachments/assets/d57423f9-3d0d-49f8-8ed8-9fd2c31506ba
 
 ## Conclusiones
 
